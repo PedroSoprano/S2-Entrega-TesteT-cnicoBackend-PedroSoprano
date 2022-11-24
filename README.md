@@ -1,7 +1,5 @@
 # S2-Entrega-TesteT-cnicoBackend-PedroSoprano
 
-# S2-Entrega-TesteT-cnicoBackend-PedroSoprano
-
 ## Para rodar o código:
 
 1 - .\venv\Scripts\activate
