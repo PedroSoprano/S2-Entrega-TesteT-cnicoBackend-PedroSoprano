@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Arquivos</title>
+    </head>
+
+    <body>
+
+        {% if files %}
+            <h1>Todas as transações:</h1>
+            <div class="total">
+                <h2>Total do saldo em conta: </h2> <h2 class="valor">R$ {{total}}</h2>
+            </div>
+
+            <table class="myTable">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>CPF</th>
+                    <th>N° cartão</th>
+                    <th>Hora</th>
+                    <th>Dono da loja</th>
+                    <th>Nome da loja</th>
+                </tr>
+                {% for file in files %}
+                <tr>
+                    <td>{{file.tipo}}</td>
+                    <td>{{file.data}}</td>
+                    <td>{{file.valor}}</td>
+                    <td>{{file.CPF}}</td>
+                    <td>{{file.cartao}}</td>
+                    <td>{{file.hora}}</td>
+                    <td>{{file.dono}}</td>
+                    <td>{{file.nome_loja}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h2>Você ainda não possui transações cadastradas.</h2>
+        {% endif %}
+
+        <form action="{% url "upload" %}" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            {{ message }}
+            <p>{{ form.non_field_errors }}</p>
+
+            <p>{{ form.docfile.label_tag }}</p>
+
+            <p class="input">
+                {{ form.docfile }}
+            </p>
+            
+            <p><input type="submit" value="Upload"/></p>
+        </form>
+    </body>
+
+    <style type="text/css">
+        @keyframes anima {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        .myTable {
+          background-color: #eee;
+          border-collapse: collapse;
+        }
+        .myTable th {
+          background-color: #000;
+          color: white;
+        }
+        .myTable td,
+        .myTable th {
+          padding: 5px;
+          border: 1px solid #000;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          background-color: darkgrey;
+        }
+        form {
+          background-color: #fff;
+          margin-top: 30px;
+          padding: 10px;
+          border-radius: 5px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+            rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+        .total {
+          background-color: #fff;
+          width: 500px;
+          height: 50px;
+          margin-bottom: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+            rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+          border-radius: 5px;
+          transition: ease-in-out 0.3s;
+        }
+        .total:hover {
+          transform: scale(1.1);
+        }
+        .valor {
+          font-style: italic;
+          margin-left: 10px;
+          animation: anima 3s infinite;
+        }
+        .input > input {
+          cursor: pointer;
+        }
+        
+        </style>
+</html>
